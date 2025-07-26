@@ -1,0 +1,79 @@
+<html>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - PrivatClub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: white;
+      text-align: center;
+      padding-top: 100px;
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: #f72585;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #c9184a;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Login ou Criar Conta</h2>
+  <input type="email" id="email" placeholder="Email"><br>
+  <input type="password" id="password" placeholder="Senha"><br>
+  <button onclick="login()">Login</button>
+  <button onclick="register()">Criar Conta</button>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBFarYOm9fZrjA0DRqDojuORr0LgUcTyGQ",
+      authDomain: "privatclub-9d6f3.firebaseapp.com",
+      projectId: "privatclub-9d6f3",
+      storageBucket: "privatclub-9d6f3.appspot.com",
+      messagingSenderId: "167501474406",
+      appId: "1:167501474406:web:998ce4da897aeccc54dba7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.register = () => {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      createUserWithEmailAndPassword(auth, email, pass)
+        .then(() => alert("Conta criada com sucesso!"))
+        .catch((error) => alert(error.message));
+    }
+
+    window.login = () => {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      signInWithEmailAndPassword(auth, email, pass)
+        .then(() => alert("Login feito com sucesso!"))
+        .catch((error) => alert(error.message));
+    }
+  </script>
+
+</body>
+</html>
